@@ -1,6 +1,7 @@
 package com.bsoft.learningspringproject.controller;
 
 
+import com.bsoft.learningspringproject.exception.ProductNotfoundException;
 import com.bsoft.learningspringproject.model.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class ProductServiceController {
     //PUT API
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Product product){
-        if(!productRepo.containsKey(id)) throw new PProductNotfoundException();
+        if(!productRepo.containsKey(id)) throw new ProductNotfoundException();
         productRepo.remove(id);
         product.setId(id);
         productRepo.put(id, product);
